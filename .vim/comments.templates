@@ -1,0 +1,194 @@
+§== Comments.end-of-line comment == map:cl, sc:e, append ==
+§# <CURSOR>
+== Comments.frame == map:cfr, sc:f  ==
+#-------------------------------------------------------------------------------
+#  <CURSOR>
+#-------------------------------------------------------------------------------
+== Comments.function == map:cfu, sc:f  ==
+#===  FUNCTION  ================================================================
+#         NAME: |?FUNCTION_NAME|
+#      PURPOSE: <CURSOR>
+#   PARAMETERS: ????
+#      RETURNS: ????
+#  DESCRIPTION: ????
+#       THROWS: no exceptions
+#     COMMENTS: none
+#     SEE ALSO: n/a
+#===============================================================================
+== Comments.method == map:cme, sc:m  ==
+#===  CLASS METHOD  ============================================================
+#        CLASS: |?CLASSNAME|
+#       METHOD: |?METHODNAME|
+#   PARAMETERS: ????
+#      RETURNS: ????
+#  DESCRIPTION: <CURSOR>
+#       THROWS: no exceptions
+#     COMMENTS: none
+#     SEE ALSO: n/a
+#===============================================================================
+== Comments.file description pl == map:chpl, sc:d, start, noindent ==
+#!/usr/bin/perl 
+#==============================================================================#
+#-------------------------------help-info-start--------------------------------#
+
+=head1 Name
+
+    |FILENAME| --> <CURSOR>
+
+=head1 Usage
+
+    perl  |FILENAME| [options] [input file]
+
+    -help       print this help to screen
+    -o          write result to a file, default print to STDOUT .
+
+=head1 Example
+
+    perl  |FILENAME| -h
+    perl  |FILENAME|
+
+=head1 Version
+
+    Verion      :  1.0
+    Created     :  |DATE| |TIME|
+    Updated     :  --
+    LastMod     :  --
+
+=head1 Contact
+
+    Author      :  Xu, Xiaopeng (Charles XU)
+    E-mail      :  charlesxu90@gmail.com, xuxiaopeng@genomics.cn
+    Company     :  BGI
+
+=cut
+#-------------------------------help-info-end--------------------------------#
+#============================================================================#
+use strict;
+use warnings;
+use Getopt::Long;
+
+
+my ($Need_help, $Input_file, $Out_file );
+GetOptions(
+        "help"      => \$Need_help,
+        "in=s"      => \$Input_file,
+        "o=s"       => \$Out_file,
+        );
+
+die `pod2text $0` if ($Need_help);
+#============================================================================#
+#                              Global Variable                               #
+#============================================================================#
+
+if (!defined $Out_file)
+{$Out_file ||= 'output.txt';}
+if (!defined $Input_file)
+{die "Input file undefined!";}
+#============================================================================#
+#                               Main process                                 #
+#============================================================================#
+
+if(defined $Input_file)
+{ open(STDIN, '<', $Input_file) or die "Can't read $Input_file : $!"; }
+if(defined $Out_file)
+{ open(STDOUT, '>', $Out_file) or die "Can't write $Out_file : $!"; }
+
+print STDERR "---Program\t$0\tstarts --> ".localtime()."\n";
+
+
+
+
+print STDERR "---Program\t$0\tends  --> ".localtime()."\n";
+
+#============================================================================#
+#                               Subroutines                                  #
+#============================================================================#
+
+== Comments.file description pm == map:chpm, sc:d, start, noindent ==
+#
+#===============================================================================
+#
+#         FILE: |FILENAME|
+#
+#  DESCRIPTION: <CURSOR>
+#
+#        FILES: ---
+#         BUGS: ---
+#        NOTES: ---
+#       AUTHOR: |AUTHOR| (|AUTHORREF|), |EMAIL|
+# ORGANIZATION: |ORGANIZATION|
+#      VERSION: 1.0
+#      CREATED: |DATE| |TIME|
+#     REVISION: ---
+#===============================================================================
+
+use strict;
+use warnings;
+ 
+== Comments.file description t == map:cht, sc:d, start, noindent ==
+#
+#===============================================================================
+#
+#         FILE: |FILENAME|
+#
+#  DESCRIPTION: <CURSOR>
+#
+#        FILES: ---
+#         BUGS: ---
+#        NOTES: ---
+#       AUTHOR: |AUTHOR| (|AUTHORREF|), |EMAIL|
+# ORGANIZATION: |ORGANIZATION|
+#      VERSION: 1.0
+#      CREATED: |DATE| |TIME|
+#     REVISION: ---
+#===============================================================================
+
+use strict;
+use warnings;
+
+use Test::More tests => 1;                      # last test to print
+
+
+== Comments.file description pod == map:chpo, sc:d, start ==
+#
+#===============================================================================
+#
+#         FILE: |FILENAME|
+#
+#  DESCRIPTION: <CURSOR>
+#
+#       AUTHOR: |AUTHOR| (|AUTHORREF|), <|EMAIL|>
+# ORGANIZATION: |ORGANIZATION|
+#      CREATED: |DATE|
+#     REVISION: ---
+#===============================================================================
+
+
+== Comments.date == insert, map:cd, sc:d ==
+|DATE|<CURSOR>
+== Comments.date+time == insert, map:ct, sc:t ==
+|DATE| |TIME|<CURSOR>
+== ENDTEMPLATE ==
+
+== LIST: comments_keywords == hash ==
+  'BUG'         : ':BUG       :|DATE| |TIME|:|AUTHORREF|: <CURSOR>',
+  'TODO'        : ':TODO      :|DATE| |TIME|:|AUTHORREF|: <CURSOR>',
+  'WARNING'     : ':WARNING   :|DATE| |TIME|:|AUTHORREF|: <CURSOR>',
+  'WORKAROUND'  : ':WORKAROUND:|DATE| |TIME|:|AUTHORREF|: <CURSOR>',
+  'new keyword' : ':<CURSOR>:|DATE| |TIME|:|AUTHORREF|: {+COMMENT+}',
+== LIST: comments_macros == hash ==
+  'AUTHOR'       : '|AUTHOR|',
+  'AUTHORREF'    : '|AUTHORREF|',
+  'COMPANY'      : '|COMPANY|',
+  'COPYRIGHT'    : '|COPYRIGHT|',
+  'EMAIL'        : '|EMAIL|',
+  'ORGANIZATION' : '|ORGANIZATION|',
+== ENDLIST ==
+
+== Comments.keyword comments == expandmenu, append, map:ck, sc:k ==
+|PickList( 'keyword comment', 'comments_keywords' )|
+ # |PICK|
+== Comments.macros == expandmenu, insert, map:cma, sc:m ==
+|PickList( 'macro', 'comments_macros' )|
+|PICK|<CURSOR>
+== ENDTEMPLATE ==
