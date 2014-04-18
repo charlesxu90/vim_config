@@ -1,5 +1,7 @@
 vim_config
 ==========
 
-This is my .vim folder backup.
+This is my linux system configuration backup.
 Also for quick use.
+
+Copy right by Xiaopeng Xu. E-mail: charlesxu90@gmail.com
